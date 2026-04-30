@@ -1,0 +1,29 @@
+# The "Apps of app pattern : a root argocd application that manages alll other application."
+# Declares once, manage everything from Git 
+
+apiVersion: argocdproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-production
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argocdproj.io
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/chougulesumeru/Zero-Touch-Deployments-Production-G\
+      itOps-with-ArgoCD-Kubernetes-GitHub.git"
+    targetRevision: main
+    path: Zero-Touch-Deployments-Production-GitOps-with-ArgoCD-Kubernetes-GitHub/k8s-manifest
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: zero-touch-gitops
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+  syncOptions:
+    - CreateNamespace=true # create namespace if missing
+    - AppltOutOfSyncOnly=true
