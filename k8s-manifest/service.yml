@@ -1,0 +1,12 @@
+# Configure service.yml file
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+  namespace: zero-touch-gitops
+spec:
+  selector:
+    app: zero-touch-gitops
+  ports:
+    - port: 8080
+      targetPort: 8080

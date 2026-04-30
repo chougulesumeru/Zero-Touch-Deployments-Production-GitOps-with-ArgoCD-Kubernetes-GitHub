@@ -1,0 +1,26 @@
+# Configure ingress.yml for routing traffic 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  namespace: zero-touch-gitops
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressController: nginx
+  tls:
+    - hosts:
+        - app.example.com
+      secretName: myapp-tls
+  rules:
+    - host: app.example.com
+      http:
+        paths:
+          path:
+            pathType:
+              backend:
+                service:
+                  name: myapp-svc
+                  port:
+                    number: 80
