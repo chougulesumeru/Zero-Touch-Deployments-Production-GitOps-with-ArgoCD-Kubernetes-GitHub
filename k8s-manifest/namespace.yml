@@ -1,0 +1,5 @@
+# Configure namespace file 
+apiVersion: apps/v1
+kind: Namespace
+metadata:
+  name: zero-touch-gitops

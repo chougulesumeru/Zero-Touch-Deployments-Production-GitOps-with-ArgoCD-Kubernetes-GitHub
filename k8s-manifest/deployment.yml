@@ -1,0 +1,40 @@
+# Configure deployment.yml maniest file 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  namespace: zero-touch-gitops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zero-touch-namespace
+  template:
+    metadata:
+      name: myapp-deployment
+      lables:
+        app: zero-touch-deployment
+    spec:
+      containers:
+        - name: myapp
+          image: sumeruc/myapp:latest
+          ports:
+            - containerPort: 8080
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          livelinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            nitialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
