@@ -11,8 +11,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://github.com/chougulesumeru/Zero-Touch-Deployments-Production-G\
-      itOps-with-ArgoCD-Kubernetes-GitHub.git"
+    repoURL: https://github.com/chougulesumeru/Zero-Touch-Deployments-Production-G\
+      itOps-with-ArgoCD-Kubernetes-GitHub.git
     targetRevision: main
     path: Zero-Touch-Deployments-Production-GitOps-with-ArgoCD-Kubernetes-GitHub/k8s-manifest
   destination:
