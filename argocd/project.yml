@@ -1,0 +1,25 @@
+# Configure project.yml in argocd 
+apiVersion: argocdproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argo-proj
+  namespace: argocd
+spec:
+  destination: Prodcution-workloads
+  sourceRepos:
+    - https://github.com/chougulesumeru/Zero-Touch-Deployments-Production-GitOps-with-ArgoCD-Kubernetes-GitHub.git
+  destinations:
+    - namespace: zero-touch-gitops
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: Namespace
+
+  roles:
+    - name: developers
+      description: Read-Only for devs
+      policies:
+        - p, proj:production:developers, application, get, production/*, allow
+      groups:
+        - org:developers
